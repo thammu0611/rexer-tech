@@ -102,9 +102,7 @@ export default function Footer() {
           <p className="font-mono text-xs text-muted">
             © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
           </p>
-          <p className="font-mono text-xs text-muted">
-            {CONTACT_INFO.hours} · CIN placeholder — replace before launch
-          </p>
+      
         </div>
       </div>
     </footer>
