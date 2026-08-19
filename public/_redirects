@@ -1,0 +1,2 @@
+# Netlify: send every path to index.html so client-side routes resolve on reload.
+/*  /index.html  200

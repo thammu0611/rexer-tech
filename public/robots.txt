@@ -1,0 +1,6 @@
+# https://www.rexertech.com/robots.txt
+User-agent: *
+Allow: /
+Disallow: /404
+
+Sitemap: https://www.rexertech.com/sitemap.xml

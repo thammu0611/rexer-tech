@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Rexer Tech Private Limited — Infrastructure & Platform Engineering</title>
+    <meta
+      name="description"
+      content="Rexer Tech Private Limited is an engineering-led technology partner. We design, build and operate cloud infrastructure, data platforms and developer platforms for teams that can't afford downtime."
+    />
+    <link rel="canonical" href="https://www.rexertech.com/" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#080f14" media="(prefers-color-scheme: dark)" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts: preconnect first so the handshake overlaps with HTML parsing. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      />
+    </noscript>
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Rexer Tech Private Limited" />
+    <meta property="og:title" content="Rexer Tech Private Limited — Infrastructure & Platform Engineering" />
+    <meta
+      property="og:description"
+      content="Engineering-led technology partner. Cloud infrastructure, data platforms and reliability engineering for teams that can't afford downtime."
+    />
+    <meta property="og:url" content="https://www.rexertech.com/" />
+    <meta property="og:image" content="https://www.rexertech.com/og-image.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
+      Theme bootstrap. Runs before first paint so a returning dark-mode visitor
+      never sees a white flash. Kept inline and tiny on purpose.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('rexer-theme');
+          var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {
+          /* private mode / storage disabled — fall through to light */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <div style="padding: 2rem; font-family: system-ui, sans-serif">
+        <h1>Rexer Tech Private Limited</h1>
+        <p>
+          This site needs JavaScript to run. You can reach us directly at
+          <a href="mailto:hello@rexertech.com">hello@rexertech.com</a>.
+        </p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

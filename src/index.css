@@ -1,0 +1,313 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   1. Theme tokens
+   Light values live on :root, dark values on .dark (Tailwind darkMode:'class').
+   Colour tokens are bare "R G B" triplets so Tailwind's /opacity modifier
+   keeps working (see tailwind.config.js).
+   ========================================================================== */
+:root {
+  color-scheme: light;
+
+  --c-paper: 255 255 255;
+  --c-surface: 255 255 255;
+  --c-ink: 19 32 41;
+  --c-muted: 90 103 113;
+  --c-line: 19 32 41;
+  --c-teal: 21 133 124;
+  --c-teal-strong: 16 110 102;
+  --c-teal-soft: 111 214 202;
+  --c-rose: 195 46 63;
+
+  --mesh: radial-gradient(ellipse at top, #eaf7f5 0%, #ffffff 55%);
+  --orb-opacity: 0.34;
+
+  --glass-top: 255 255 255;
+  --glass-top-a: 0.88;
+  --glass-bottom-a: 0.7;
+  --glass-strong-top-a: 0.96;
+  --glass-strong-bottom-a: 0.86;
+  --glass-border: 19 32 41;
+  --glass-border-a: 0.09;
+  --glass-highlight: 21 133 124;
+  --glass-highlight-a: 0.1;
+
+  --shadow-glass: 0 8px 28px 0 rgb(19 32 41 / 0.1), inset 0 1px 0 0 rgb(255 255 255 / 0.7);
+  --shadow-glass-lg: 0 22px 60px -18px rgb(19 32 41 / 0.22), inset 0 1px 0 0 rgb(255 255 255 / 0.75);
+
+  --scroll-track: #eaf7f5;
+  --scroll-thumb: #9fd9d0;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --c-paper: 8 15 20;
+  --c-surface: 15 26 33;
+  --c-ink: 228 238 240;
+  --c-muted: 155 173 181;
+  --c-line: 228 238 240;
+  --c-teal: 63 209 194;
+  --c-teal-strong: 108 226 212;
+  --c-teal-soft: 45 168 156;
+  --c-rose: 255 138 150;
+
+  --mesh: radial-gradient(ellipse at top, #0d2028 0%, #080f14 58%);
+  --orb-opacity: 0.24;
+
+  --glass-top: 228 238 240;
+  --glass-top-a: 0.08;
+  --glass-bottom-a: 0.04;
+  --glass-strong-top-a: 0.11;
+  --glass-strong-bottom-a: 0.06;
+  --glass-border: 228 238 240;
+  --glass-border-a: 0.12;
+  --glass-highlight: 63 209 194;
+  --glass-highlight-a: 0.1;
+
+  --shadow-glass: 0 8px 28px 0 rgb(0 0 0 / 0.45), inset 0 1px 0 0 rgb(255 255 255 / 0.06);
+  --shadow-glass-lg: 0 24px 64px -20px rgb(0 0 0 / 0.6), inset 0 1px 0 0 rgb(255 255 255 / 0.08);
+
+  --scroll-track: #0d2028;
+  --scroll-thumb: #1f4a4a;
+}
+
+/* ==========================================================================
+   2. Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* keep the fluid type scale honest on mobile Safari */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  /* `clip` instead of `hidden`: hidden creates a scroll container on the
+     ancestor, which silently breaks `position: sticky` on the navbar. */
+  overflow-x: clip;
+}
+
+body {
+  @apply bg-paper font-body text-ink antialiased;
+  min-height: 100dvh;
+  /* respect notches / rounded corners / home-indicator areas */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* visible, high-contrast focus ring that reads on glass in both themes */
+:focus-visible {
+  outline: 2px solid rgb(var(--c-teal));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgb(var(--c-teal) / 0.22);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   3. Layout primitives
+   ========================================================================== */
+
+/* Fluid content column: hugs the screen edges on phones, keeps growing with
+   the viewport, but capped so it never gets unreadably wide on a big monitor. */
+.container-fluid {
+  width: 100%;
+  max-width: min(96vw, 1500px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gutter {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .gutter {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .gutter {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+/* Consistent vertical rhythm for every section on every page. */
+.section {
+  padding-top: clamp(2.5rem, 1.6rem + 3vw, 4.5rem);
+  padding-bottom: clamp(2.5rem, 1.6rem + 3vw, 4.5rem);
+}
+.section-tight {
+  padding-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  padding-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+/* ==========================================================================
+   4. Fluid typography — scales continuously instead of jumping at breakpoints
+   ========================================================================== */
+.text-fluid-hero {
+  font-size: clamp(2.15rem, 1.35rem + 3.3vw, 4.1rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+.text-fluid-h2 {
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+}
+.text-fluid-h3 {
+  font-size: clamp(1.125rem, 1.02rem + 0.5vw, 1.375rem);
+  line-height: 1.3;
+}
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ==========================================================================
+   5. Liquid glass
+   ========================================================================== */
+.bg-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--mesh);
+  transition: background 0.35s ease;
+}
+
+.bg-mesh span {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: var(--orb-opacity);
+}
+
+.glass {
+  background: linear-gradient(
+    180deg,
+    rgb(var(--glass-top) / var(--glass-top-a)),
+    rgb(var(--glass-top) / var(--glass-bottom-a))
+  );
+  border: 1px solid rgb(var(--glass-border) / var(--glass-border-a));
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+.glass-strong {
+  background: linear-gradient(
+    180deg,
+    rgb(var(--glass-top) / var(--glass-strong-top-a)),
+    rgb(var(--glass-top) / var(--glass-strong-bottom-a))
+  );
+  border: 1px solid rgb(var(--glass-border) / calc(var(--glass-border-a) + 0.02));
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+}
+
+/* specular arc used by GlassCard / Navbar */
+.glass-highlight {
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--glass-highlight) / var(--glass-highlight-a)),
+    transparent 70%
+  );
+}
+
+/* ==========================================================================
+   6. Motion
+   ========================================================================== */
+.page-transition {
+  animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Everything decorative switches itself off for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   7. Utilities
+   ========================================================================== */
+.sr-only-focusable:not(:focus):not(:focus-within) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* pause the logo marquee on hover/focus so it is readable and not a trap */
+.marquee-track:hover,
+.marquee-track:focus-within {
+  animation-play-state: paused;
+}
+
+.mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}

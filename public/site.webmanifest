@@ -1,0 +1,17 @@
+{
+  "name": "Rexer Tech Private Limited",
+  "short_name": "Rexer Tech",
+  "description": "Engineering-led technology partner — cloud infrastructure, data platforms and reliability engineering.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#15857c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
